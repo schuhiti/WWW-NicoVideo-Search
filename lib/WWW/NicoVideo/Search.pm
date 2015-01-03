@@ -1,11 +1,14 @@
 package WWW::NicoVideo::Search;
 
+use utf8;
 use strict;
 use 5.008_005;
 our $VERSION = '0.01';
 
 use JSON::Any;
 use LWP::UserAgent;
+
+use WWW::NicoVideo::Search::Response;
 
 my $AGENT_NAME = "@{[__PACKAGE__]}/$VERSION)";
 my $API_ENDPOINT = 'http://api.search.nicovideo.jp/api/snapshot/';
@@ -30,7 +33,7 @@ sub search {
     $req->header( 'Content-Type' => 'application/json' );
     $req->content($self->{query_json});
 
-    $self->{ua}->request($req);
+    WWW::NicoVideo::Search::Response->new($self->{ua}->request($req));
 }
 
 sub mk_query_json {
