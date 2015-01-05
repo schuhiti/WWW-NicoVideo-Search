@@ -44,7 +44,7 @@ sub mk_query_json {
     $args{from} //= 0;
     $args{size} //= 10;
     $args{search} //= ["tags_exact"];
-    $args{join} //= ["cmsid", "start_time", "length_seconds"];
+    $args{join} //= ["cmsid", "start_time", "length_seconds", "title"];
 
     my $query = {
         query => $args{query},
