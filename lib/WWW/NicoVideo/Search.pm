@@ -70,19 +70,34 @@ __END__
 
 =head1 NAME
 
-WWW::NicoVideo::Search - Blah blah blah
+WWW::NicoVideo::Search - Perl interface to nicovideo snapshot search API.
 
 =head1 SYNOPSIS
 
   use WWW::NicoVideo::Search;
 
+  my $nvs = WWW::NicoVideo::Search->new;
+  my $res = $nvs->search({ query => "sm9" }); # search as tag_exact mode
+                                              # returns csmid, start_time
+                                              # length_seconds, title
+                                              # order by start_time.
+
+  exit if $res->{is_error}; 
+
+  $res->{stats}{total}; # number of total hits
+
+  my $values = $res->{hits}{values}; # array ref of search response hash
+  foreach my $v (@$values) {
+      $v->{csmid}; # video id
+  }
+
 =head1 DESCRIPTION
 
-WWW::NicoVideo::Search is
+WWW::NicoVideo::Search is Perl interface to nicovideo snapshot search API.
 
 =head1 AUTHOR
 
-aoicat E<lt>afuhineco@gmail.comE<gt>
+aoicat afuhineco +github @gmail.com
 
 =head1 COPYRIGHT
 
@@ -94,5 +109,7 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =head1 SEE ALSO
+
+L<http://search.nicovideo.jp/docs/api/snapshot.html>, ニコニコ動画 『スナップショット検索API』 ガイド.
 
 =cut
